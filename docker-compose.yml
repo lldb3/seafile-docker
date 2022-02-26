@@ -7,8 +7,6 @@ services:
       - mariadb
     links:
       - mariadb
-    networks:
-      - default
     ports:
       - "80:80"
     environment:
@@ -17,10 +15,10 @@ services:
       ADMIN_PASSWORD: admin
       SEAFILE_URL: http://localhost
     volumes:
-      - seafile-ccnet:/seafile/ccnet
-      - seafile-seafile-data:/seafile/seafile-data
-      - seafile-seahub-data:/seafile/seahub-data
-      - seafile-conf:/seafile/conf
+      - seafile/ccnet:/seafile/ccnet
+      - seafile/seafile-data:/seafile/seafile-data
+      - seafile/seahub-data:/seafile/seahub-data
+      - seafile/conf:/seafile/conf
       
   mariadb:
     container_name: mariadb
