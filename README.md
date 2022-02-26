@@ -4,7 +4,7 @@ Seafile docker image for easy and fast setup, built on the awesome work by **fox
 
 ## Quickstart
 
-* Write the following `docker-compose.yml` configuration. You should change environment variables as needed.
+* Use the provided `docker-compose.yml` configuration. You should change environment variables as needed.
 * Start the services with `docker compose up -d`
 * Check the logs: `docker compose logs -f`. The setup should be complete once you see that 
   * Mysql db is listening for incoming connections
