@@ -11,7 +11,7 @@ function usage () {
     echo ""
 }
 
-if [ $# -gt 0 ]; then
+if [[ $# -gt 0 ]]; then
     for param in $@; do
         if [ ${param} = "-h" -o ${param} = "--help" ]; then
             usage;

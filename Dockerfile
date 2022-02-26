@@ -1,20 +1,24 @@
-FROM ubuntu:16.04
+    # set platform as amd64, since some qemu libs work with x86-64
+FROM --platform=linux/amd64 ubuntu:20.04
 
 ENV LANG=C.UTF-8 \
     DEBIAN_FRONTEND=noninteractive
 
 RUN \
-    apt-get update && \
+    apt-get update && apt-get upgrade -y &&\
     apt-get install --no-install-recommends -y \
-        wget mysql-client supervisor nginx crudini ffmpeg python-pip \
-        python2.7 libpython2.7 python-setuptools python-imaging \
-        python-ldap python-mysqldb python-pylibmc python-urllib3 && \
-    pip install pillow moviepy django-pylibmc && \
-    apt-get remove -y --purge --autoremove python-pip && \
+    wget supervisor nginx crudini ffmpeg mysql-client libmysqlclient-dev \
+    python3 python3-setuptools python3-pip \
+    memcached libmemcached-dev && \
+    apt-get install gcc libffi-dev python3-dev -y && \
+    pip3 install --upgrade pip && \
+    pip3 install --timeout=3600 django==3.2.* Pillow pylibmc captcha jinja2 sqlalchemy==1.4.3 \
+    django-pylibmc django-simple-captcha python3-ldap mysqlclient pycryptodome==3.12.0 cffi==1.14.0 && \
+    apt-get remove -y --purge --autoremove gcc libffi-dev python3-dev && \
     rm -rf /var/lib/apt/lists/* && \
     rm -f /etc/nginx/sites-enabled/*
 
-ENV SEAFILE_VERSION 6.3.3
+ENV SEAFILE_VERSION 9.0.4
 ENV SEAFILE_PATH "/opt/seafile/$SEAFILE_VERSION"
 
 RUN \
@@ -35,11 +39,12 @@ RUN \
     ln -s "${SEAFILE_PATH}" /opt/seafile/latest && \
     ln -s /etc/nginx/sites-available/seafile.conf /etc/nginx/sites-enabled/seafile.conf && \
     ln -s /scripts/setup.sh /bin/setup && \
+    ln -s /usr/local/bin/python3 /usr/local/bin/python && \
     mkdir -p /seafile/ccnet && \
     mkdir -p /seafile/seafile-data && \
     mkdir -p /seafile/seahub-data && \
     mkdir -p /seafile/logs && \
-    mkdir -p /seafile/conf
+    mkdir -p /seafile/conf 
 
 # Patch setup-seafile-mysql.py to support existing directories on setup
 # This will also generate ccnet configuration inside a tmp directory as it doesn't support generation inside existing directory

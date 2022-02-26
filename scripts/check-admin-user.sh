@@ -7,4 +7,4 @@ if [[ ! -z "${ADMIN_EMAIL}" && ! -z \"${ADMIN_PASSWORD}\" ]]; then
   echo "{\"email\": \"${ADMIN_EMAIL}\", \"password\": \"${ADMIN_PASSWORD}\"}">"$SEAFILE_CENTRAL_CONF_DIR/admin.txt"
 fi
 
-python ${INSTALLPATH}/check_init_admin.py
+python3 ${INSTALLPATH}/check_init_admin.py

@@ -2,10 +2,8 @@ version: '3.7'
 services:
   seafile:
     container_name: seafile
-    build: .
+    image: auto-seafile #TODO
     depends_on:
-      - mariadb
-    links:
       - mariadb
     networks:
       - default
@@ -17,10 +15,10 @@ services:
       ADMIN_PASSWORD: admin
       SEAFILE_URL: http://localhost
     volumes:
-      - seafile-ccnet:/seafile/ccnet
-      - seafile-seafile-data:/seafile/seafile-data
-      - seafile-seahub-data:/seafile/seahub-data
-      - seafile-conf:/seafile/conf
+      - $DATADIR/seafile-ccnet:/seafile/ccnet
+      - $DATADIR/seafile-seafile-data:/seafile/seafile-data
+      - $DATADIR/seafile-seahub-data:/seafile/seahub-data
+      - $DATADIR/seafile-conf:/seafile/conf
       
   mariadb:
     container_name: mariadb
@@ -30,10 +28,4 @@ services:
       MARIADB_ROOT_PASSWORD: secret
     image: mariadb:latest
     volumes:
-      - mysql:/var/lib/mysql
-
-volumes:
-  mysql:
-    driver: local
-  seafile:
-    driver: local
+      - $DATADIR/mysql:/var/lib/mysql
