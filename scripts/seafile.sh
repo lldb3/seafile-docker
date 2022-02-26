@@ -7,10 +7,12 @@ fi
 . /scripts/seafile-env.sh
 . /scripts/seafile-setup-env.sh
 
-if ! mysqladmin ping -h${MYSQL_HOST} -P${MYSQL_PORT} -u${MYSQL_USER} -p${MYSQL_USER_PASSWD} --silent; then
-    echo "MySQL is not available."
-    exit 1
-fi
+
+echo "Waiting for MySQL..."
+while ! mysqladmin ping -h${MYSQL_HOST} -P${MYSQL_PORT} -u${MYSQL_USER} -p${MYSQL_USER_PASSWD} --silent; do
+    sleep 3
+done
+
 
 # fix seafile install path symlinks
 for folder in ccnet conf logs seafile-data seahub-data; do
