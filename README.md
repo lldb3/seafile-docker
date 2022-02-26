@@ -41,15 +41,17 @@ docker-compose exec seafile /scripts/upgrade.sh 9.0.0
 docker-compose exec seafile /scripts/upgrade.sh 8.0.0
 ```
 
-### Etc
-
-```
-docker-compose exec seafile /scripts/upgrade.sh X.0.0
-```
-
 ## Credits
 
 This image was built merging and updating from the great work already done here:
 - https://github.com/foxel/seafile-docker - the main repo
 - https://github.com/GIP-RECIA/seafile-docker/tree/automated-setup - for automated setup
+
+
+
+### Etc
+
+```
+docker-compose exec seafile /scripts/upgrade.sh X.0.0
+```
 
