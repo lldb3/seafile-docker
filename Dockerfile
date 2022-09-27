@@ -1,5 +1,5 @@
     # set platform as amd64, since some qemu libs work with x86-64
-FROM --platform=linux/amd64 ubuntu:20.04
+FROM --platform=linux/amd64 ubuntu:22.04
 
 ENV LANG=C.UTF-8 \
     DEBIAN_FRONTEND=noninteractive
@@ -9,7 +9,9 @@ RUN \
     apt-get install --no-install-recommends -y \
     wget supervisor nginx crudini ffmpeg mysql-client libmysqlclient-dev \
     python3 python3-setuptools python3-pip \
-    memcached libmemcached-dev && \
+    memcached libmemcached-dev
+
+RUN \
     apt-get install gcc libffi-dev python3-dev -y && \
     pip3 install --upgrade pip && \
     pip3 install --timeout=3600 django==3.2.* Pillow pylibmc captcha jinja2 sqlalchemy==1.4.3 \
